@@ -1,0 +1,6 @@
+services:
+  - type: worker  # <- rất quan trọng!
+    name: telegram-drive-bot
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"

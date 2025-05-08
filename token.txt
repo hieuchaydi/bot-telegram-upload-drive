@@ -1,0 +1,31 @@
+{
+    "sau khi dáp api của credentials.json thì dữ liệu từ đây tự sinh hoặc dùng đoạn code này tự sinh :{
+      {from google_auth_oauthlib.flow import InstalledAppFlow
+import json
+
+SCOPES = ['https://www.googleapis.com/auth/drive']
+
+flow = InstalledAppFlow.from_client_secrets_file(
+    'credentials.json', SCOPES)
+
+creds = flow.run_local_server(port=0)
+
+with open('token.json', 'w') as token_file:
+    token_data = {
+        'token': creds.token,
+        'refresh_token': creds.refresh_token,
+        'token_uri': creds.token_uri,
+        'client_id': creds.client_id,
+        'client_secret': creds.client_secret,
+        'scopes': creds.scopes,
+        'universe_domain': 'googleapis.com',
+        'account': '',
+        'expiry': creds.expiry.isoformat()
+    }
+    json.dump(token_data, token_file, indent=2)
+
+print("✅ File token.json đã được tạo thành công!")
+hoặc khi bạn 
+}
+    } "
+  }
