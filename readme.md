@@ -94,4 +94,7 @@ Nếu gặp lỗi WinError 32, có thể do ảnh đang bị mở hoặc bị gh
 📬 Liên hệ
 Nếu bạn cần trợ giúp thêm, hãy tạo Issue trong GitHub repo.
 lưu ý đoạn code :creds = flow.run_console() ở file drive_uploader.py nếu bạn chưa deploy mà chỉ chạy local thì chuyển doạn
- creds = flow.run_local_server(port=0) về để chạy local nhé 
+ creds = flow.run_local_server(port=0) về để chạy local nhé
+
+![Giao diện lưu ảnh ](assets/anh.png)
+![Giao diện video ](assets/video.png)
