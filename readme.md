@@ -120,7 +120,7 @@ telegram-drive-bot/
 
 | Lưu ảnh            | Lưu video           |
 |--------------------|---------------------|
-| ![Ảnh lưu vào Drive](assets/anh.png) | ![Video lưu vào Drive](assets/video.png) |
+| ![Ảnh lưu vào Drive](assets/anh.jpg) | ![Video lưu vào Drive](assets/video.jpg) |
 
 ---
 
