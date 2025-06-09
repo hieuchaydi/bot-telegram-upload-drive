@@ -1,129 +1,129 @@
-
 # 📸 Telegram to Google Drive Bot
 
-Bot này cho phép bạn gửi ảnh qua Telegram và tự động lưu ảnh lên Google Drive, được sắp xếp theo ngày (định dạng `YYYY-MM-DD`). Ảnh **không lưu tạm trên ổ đĩa máy tính**.
+This bot allows you to send photos via Telegram and automatically uploads them to your Google Drive, organized by date (`YYYY-MM-DD` format). **No temporary local disk storage is used.**
 
 ---
 
-## ✅ Tính năng nổi bật
+## ✅ Key Features
 
-- Tự động nhận ảnh từ Telegram.
-- Tạo thư mục theo ngày trên Google Drive.
-- Upload ảnh trực tiếp mà không lưu tạm trên máy.
-- Gửi lại liên kết chia sẻ ảnh cho người dùng.
-
----
-
-## 🛠️ Yêu cầu hệ thống
-
-- Python 3.8 trở lên  
-- Tài khoản Google Drive  
-- Bot Telegram + Token truy cập  
-- File `credentials.json` từ Google API Console  
+- Automatically receives photos from Telegram.
+- Creates a daily folder in Google Drive.
+- Directly uploads images without saving them on disk.
+- Sends back a shareable link to the uploaded image.
 
 ---
 
-## 📦 Hướng dẫn cài đặt
+## 🛠️ System Requirements
 
-### 1. Tạo thư mục và môi trường ảo
+- Python 3.8 or higher  
+- Google Drive account  
+- Telegram Bot + Access Token  
+- `credentials.json` file from Google API Console  
+
+---
+
+## 📦 Installation Guide
+
+### 1. Create Project Directory and Virtual Environment
 ```bash
 mkdir telegram-drive-bot
 cd telegram-drive-bot
 python -m venv venv
 
-# Kích hoạt môi trường:
-# Trên Linux/macOS:
+# Activate the environment:
+# On Linux/macOS:
 source venv/bin/activate
-# Trên Windows:
+# On Windows:
 venv\Scripts\activate
 ```
 
-### 2. Cài đặt thư viện phụ thuộc
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🤖 Tạo Bot Telegram
+## 🤖 Create a Telegram Bot
 
-1. Mở Telegram và truy cập [@BotFather](https://t.me/BotFather)  
-2. Gõ `/newbot` và làm theo hướng dẫn để tạo bot mới  
-3. BotFather sẽ trả lại **Token truy cập**, lưu lại để cấu hình trong `bot.py`
-
----
-
-## 🔐 Tạo Google OAuth Credentials
-
-1. Truy cập [Google Cloud Console](https://console.cloud.google.com/)  
-2. Tạo Project mới → Vào **API & Services → Enable APIs & Services**  
-3. Tìm và bật **Google Drive API**  
-4. Vào **Credentials → Create Credentials → OAuth Client ID**
-   - **Application type**: Chọn "Desktop App"
-5. Tải về file **`credentials.json`**  
-6. Đặt file này vào thư mục gốc của dự án
+1. Open Telegram and go to [@BotFather](https://t.me/BotFather)  
+2. Type `/newbot` and follow the instructions to create a new bot  
+3. BotFather will return an **Access Token**—save this to configure in `bot.py`
 
 ---
 
-## 🚀 Chạy bot lần đầu
+## 🔐 Create Google OAuth Credentials
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)  
+2. Create a new Project → Go to **API & Services → Enable APIs & Services**  
+3. Search for and enable **Google Drive API**  
+4. Go to **Credentials → Create Credentials → OAuth Client ID**
+   - **Application type**: Select "Desktop App"
+5. Download the **`credentials.json`** file  
+6. Place this file in your project root directory
+
+---
+
+## 🚀 First Run
+
 ```bash
 python bot.py
 ```
 
-- Lần đầu chạy, trình duyệt sẽ mở để xác thực tài khoản Google.
-- Sau khi xác thực xong, file `token.json` sẽ được tạo tự động để lưu thông tin truy cập.
+- On first run, a browser window will open for Google account authentication.
+- After authentication, a `token.json` file will be auto-generated to store access tokens.
 
-👉 **Lưu ý:**  
-Nếu bạn **chạy cục bộ (local)** mà không deploy bot, hãy sửa dòng trong `drive_uploader.py`:
+👉 **Note:**  
+If you are **running locally** (not deploying the bot), edit the following line in `drive_uploader.py`:
 ```python
 creds = flow.run_console()
 ```
-thành:
+Change it to:
 ```python
 creds = flow.run_local_server(port=0)
 ```
-Điều này giúp xác thực dễ dàng hơn qua trình duyệt.
+This makes authentication easier via your browser.
 
 ---
 
-## 📁 Cấu trúc thư mục dự án
+## 📁 Project Directory Structure
 
 ```
 telegram-drive-bot/
-├── bot.py              # Mã điều khiển Telegram Bot
-├── drive_uploader.py   # Xử lý upload ảnh lên Google Drive
-├── credentials.json    # OAuth credentials từ Google (tự tải về)
-├── token.json          # Token xác thực Google (tạo sau lần đầu chạy)
-├── requirements.txt    # Danh sách các thư viện cần cài
-└── README.md           # Tài liệu hướng dẫn sử dụng
+├── bot.py              # Telegram Bot logic
+├── drive_uploader.py   # Handles uploading images to Google Drive
+├── credentials.json    # OAuth credentials from Google (downloaded)
+├── token.json          # Google authentication token (generated after first run)
+├── requirements.txt    # List of required Python libraries
+└── README.md           # User guide
 ```
 
 ---
 
-## ⚠️ Cảnh báo bảo mật
+## ⚠️ Security Warning
 
-- **Không** đẩy file `credentials.json` hoặc `token.json` lên GitHub hoặc bất kỳ kho lưu trữ công khai nào.
-- Nếu gặp lỗi **WinError 32**, có thể do ảnh đang bị mở bởi ứng dụng khác – hãy đóng ảnh trước khi gửi.
-- Đảm bảo bot có quyền truy cập Google Drive qua tài khoản bạn đã xác thực.
-
----
-
-## 🧩 Kế hoạch phát triển
-
-- ✅ Hỗ trợ thêm **video**, **PDF**
-- ✅ Giới hạn quyền gửi ảnh (chỉ cho **admin**)
-- ✅ Xây dựng **dashboard web** quản lý ảnh/video
+- **Do not** commit `credentials.json` or `token.json` to GitHub or any public repository.
+- If you see **WinError 32**, it may be because the image is open in another application—close it before sending.
+- Ensure your bot has access to your Google Drive via the authenticated Google account.
 
 ---
 
-## 🖼️ Giao diện mẫu
+## 🧩 Roadmap
 
-| Lưu ảnh            | Lưu video           |
-|--------------------|---------------------|
-| ![Ảnh lưu vào Drive](assets/anh.jpg) | ![Video lưu vào Drive](assets/video.jpg) |
+- ✅ Add support for **videos**, **PDFs**
+- ✅ Restrict photo upload permissions (admin-only)
+- ✅ Build a **web dashboard** to manage images/videos
 
 ---
 
-## 📬 Liên hệ
+## 🖼️ Example UI
 
-Nếu bạn cần hỗ trợ thêm, hãy tạo issue trên GitHub repo của dự án.
+| Save Photo           | Save Video            |
+|----------------------|----------------------|
+| ![Photo saved to Drive](assets/anh.jpg) | ![Video saved to Drive](assets/video.jpg) |
+
+---
+
+## 📬 Contact
+
+For support, please open an issue on the project's GitHub repository.
